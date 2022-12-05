@@ -32,7 +32,7 @@ public partial class player : CharacterBody3D
 			playerResetPosition.y = camPosition.y;
 			Rotation = playerResetPosition / 2;
 			Vector3 cameraResetPosition = cameraCenter.Rotation; 
-			cameraCenter.Rotation = new Vector3 (cameraResetPosition.x,0,0); //resetpositions doesnt work because of fucking radians delete them fucking idiots
+			cameraCenter.Rotation = new Vector3 (cameraResetPosition.x,0,0);
 		}
     }
 	public override void _PhysicsProcess(double delta)
