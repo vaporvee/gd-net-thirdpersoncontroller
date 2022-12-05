@@ -29,10 +29,9 @@ public partial class player : CharacterBody3D
 		{
 			playerResetPosition = Rotation;
             camPosition = cameraCenter.Rotation;
-			playerResetPosition.y = camPosition.y;
-			Rotation = playerResetPosition / 2;
-			Vector3 cameraResetPosition = cameraCenter.Rotation; 
-			cameraCenter.Rotation = new Vector3 (cameraResetPosition.x,0,0);
+			playerResetPosition.y = camPosition.y * -1f;
+			Rotation -= playerResetPosition;
+			cameraCenter.Rotation = new Vector3 (camPosition.x,0,0);
 		}
     }
 	public override void _PhysicsProcess(double delta)
@@ -68,7 +67,6 @@ public partial class player : CharacterBody3D
 			Vector3 generalRot = Rotation;
             if (Input.IsActionPressed("move_forward")) generalRot.y -= motionEvent.Relative.x * mouseSensitivity;
             Rotation = generalRot;
-
             generalRot = cameraCenter.Rotation;
             if (!Input.IsActionPressed("move_forward")) generalRot.y -= motionEvent.Relative.x * mouseSensitivity;
             generalRot.x -= motionEvent.Relative.y * mouseSensitivity;
