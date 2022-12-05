@@ -25,8 +25,8 @@ public partial class player : CharacterBody3D
 	public override void _Process(double delta)
 	{
         if (Input.IsActionJustPressed("uncapture_mouse")) Input.MouseMode = Input.MouseModeEnum.Visible;
-        if (Input.IsMouseButtonPressed(MouseButton.Left)) Input.MouseMode = Input.MouseModeEnum.Captured;//has to be disabled when the game has a pause menu
-        if (Input.IsActionJustPressed("move_forward"))
+        if (Input.IsMouseButtonPressed(MouseButton.Left)) Input.MouseMode = Input.MouseModeEnum.Captured;//just uncapture to also disable player and camera movement
+        if (Input.IsActionJustPressed("move_forward") && Input.MouseMode == Input.MouseModeEnum.Captured)
 		{
 			playerResetPosition = Rotation;
             camPosition = cameraCenter.Rotation;
@@ -42,7 +42,7 @@ public partial class player : CharacterBody3D
 		if (!IsOnFloor())
 			velocity.y -= gravity * (float)delta;
 
-		if (Input.IsActionJustPressed("move_jump") && IsOnFloor())
+		if (Input.IsActionJustPressed("move_jump" ) && Input.MouseMode == Input.MouseModeEnum.Captured && IsOnFloor())
 			velocity.y = JumpVelocity;
 
 		Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_forward", "move_backward");
@@ -57,8 +57,10 @@ public partial class player : CharacterBody3D
 			velocity.x = Mathf.MoveToward(Velocity.x, 0, Speed);
 			velocity.z = Mathf.MoveToward(Velocity.z, 0, Speed);
 		}
-
-		Velocity = velocity;
+		if(Input.MouseMode == Input.MouseModeEnum.Captured)
+		{
+			Velocity = velocity;
+		}
 		MoveAndSlide();
 	}
 	public override void _Input(InputEvent @event)
