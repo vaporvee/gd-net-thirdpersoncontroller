@@ -14,6 +14,7 @@ public partial class player : CharacterBody3D
 	public Camera3D camera;
 	public Vector3 camPosition;
 	public Vector3 playerResetPosition;
+	//TODO: Add camera max rotation on ground (Preventing turning camera to upside down)
     public override void _Ready()
 	{
         cameraCenter = GetNode<Marker3D>("camera_center");
