@@ -21,7 +21,7 @@ transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 1, 0, 1.2, 0)
 shape = SubResource("CapsuleShape3D_bfc1o")
 
 [node name="raycast" type="RayCast3D" parent="."]
-transform = Transform3D(0.999965, 0.00425433, -0.00718195, -0.00722324, 0.00977106, -0.999926, -0.00418384, 0.999943, 0.00980145, 0.0215459, 1.13283, -1.47514)
+transform = Transform3D(-1, -8.74228e-08, -4.37114e-08, 4.37114e-08, 1.91069e-15, -1, 8.74228e-08, -1, 1.91069e-15, 0, 0.8, -0.5)
 target_position = Vector3(0, 1, 0)
 
 [node name="camera_center" type="Marker3D" parent="."]
