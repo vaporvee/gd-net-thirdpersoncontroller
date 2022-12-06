@@ -2,6 +2,10 @@
 
 [ext_resource type="Script" path="res://src/player.cs" id="1_sqkid"]
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4c62m"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_72sci"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2m1ud"]
 albedo_color = Color(0, 0, 0, 1)
 
@@ -10,10 +14,6 @@ material = SubResource("StandardMaterial3D_2m1ud")
 text = ":)"
 font_size = 70
 
-[sub_resource type="SphereMesh" id="SphereMesh_72sci"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_4c62m"]
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bfc1o"]
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_31c1r"]
@@ -21,32 +21,33 @@ font_size = 70
 [node name="player" type="CharacterBody3D"]
 script = ExtResource("1_sqkid")
 
-[node name="debugfacemesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.37114e-08, 1, 0, -0.949387, -4.1499e-08, -0.314108, -0.314108, -1.37301e-08, 0.949387, 0.09, 2, -0.45)
-mesh = SubResource("TextMesh_fc7r6")
-
-[node name="handright" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.7, 1.5, 0)
-mesh = SubResource("SphereMesh_72sci")
-skeleton = NodePath("")
-
-[node name="handleft" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.7, 1.5, 0)
-mesh = SubResource("SphereMesh_72sci")
-skeleton = NodePath("")
-
 [node name="mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.999994, 0, 0.00349065, 0, 1.2, 0, -0.00349065, 0, 0.999994, 0, 1.2, 0)
 mesh = SubResource("CapsuleMesh_4c62m")
 skeleton = NodePath("")
 
+[node name="handright" type="MeshInstance3D" parent="mesh"]
+transform = Transform3D(0.399998, -1.77635e-15, -0.00139626, 4.57356e-16, 0.333333, 0, 0.00139626, -6.20064e-18, 0.399998, 0.699996, 0.25, 0.00244345)
+mesh = SubResource("SphereMesh_72sci")
+skeleton = NodePath("")
+
+[node name="handleft" type="MeshInstance3D" parent="mesh"]
+transform = Transform3D(0.399998, -1.77635e-15, -0.00139626, 4.57356e-16, 0.333333, 0, 0.00139626, -6.20064e-18, 0.399998, -0.699996, 0.25, -0.00244345)
+mesh = SubResource("SphereMesh_72sci")
+skeleton = NodePath("")
+
+[node name="debugfacemesh" type="MeshInstance3D" parent="mesh"]
+transform = Transform3D(0.0010964, 0.999994, -0.00331398, -0.791156, -3.45825e-08, -0.261757, -0.314106, 0.00349064, 0.949381, 0.0915702, 0.666667, -0.449683)
+mesh = SubResource("TextMesh_fc7r6")
+skeleton = NodePath("../..")
+
+[node name="raycast" type="RayCast3D" parent="mesh"]
+transform = Transform3D(-0.999994, 0.00349056, -4.37111e-08, 3.64262e-08, 1.59224e-15, -0.833333, -0.00349056, -0.999994, -1.52579e-10, 0.00174532, -0.333333, -0.499997)
+target_position = Vector3(0, 1, 0)
+
 [node name="collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 1, 0, 1.2, 0)
 shape = SubResource("CapsuleShape3D_bfc1o")
-
-[node name="raycast" type="RayCast3D" parent="."]
-transform = Transform3D(-1, -8.74228e-08, -4.37114e-08, 4.37114e-08, 1.91069e-15, -1, 8.74228e-08, -1, 1.91069e-15, 0, 0.8, -0.5)
-target_position = Vector3(0, 1, 0)
 
 [node name="camera_center" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 1.2, 0)

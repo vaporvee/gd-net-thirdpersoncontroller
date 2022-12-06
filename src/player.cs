@@ -14,14 +14,15 @@ public partial class player : CharacterBody3D
 	public Camera3D camera;
 	public Vector3 camPosition;
 	public Vector3 playerResetPosition;
-	public Vector3 direction;
 	//TODO: Add camera max rotation on ground (Preventing turning camera to upside down)
-	//TODO: rotate player "model" better in walking direction
+	//TODO: just rotate model not just everything
     public override void _Ready()
 	{
         cameraCenter = GetNode<Marker3D>("camera_center");
         camera = GetNode<Camera3D>("camera_center/spring_arm/camera");
 		mouseSensitivity = mouseSensitivity / 2;
+		minCamPitch = minCamPitch + (float)Math.PI / 2;
+		maxCamPitch = maxCamPitch + (float)Math.PI / 2;
 		Input.MouseMode = Input.MouseModeEnum.Captured;
     }
 	public override void _Process(double delta)
@@ -41,7 +42,7 @@ public partial class player : CharacterBody3D
 			velocity.y = JumpVelocity;
 
 		Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_forward", "move_backward");
-		direction = (Transform.basis * new Vector3(inputDir.x, 0, inputDir.y)).Normalized();
+		Vector3 direction = (Transform.basis * new Vector3(inputDir.x, 0, inputDir.y)).Normalized();
 		if (direction != Vector3.Zero && Input.MouseMode == Input.MouseModeEnum.Captured)
 		{
 			velocity.x = direction.x * Speed;
@@ -60,20 +61,18 @@ public partial class player : CharacterBody3D
 			velocity.z = Mathf.MoveToward(Velocity.z, 0, Speed);
         }
 
-			Velocity = velocity;
-			MoveAndSlide();
+		Velocity = velocity;
+
+		MoveAndSlide();
 	}
 	public override void _Input(InputEvent @event)
 	{
 		if(@event is InputEventMouseMotion motionEvent && Input.MouseMode == Input.MouseModeEnum.Captured)
 		{
-			Vector3 generalRot = Rotation;
-            if (direction != Vector3.Zero) generalRot.y -= motionEvent.Relative.x * mouseSensitivity * (float)gotDelta; ;
-            Rotation = generalRot;
-            generalRot = cameraCenter.Rotation;
-            if (direction == Vector3.Zero) generalRot.y -= motionEvent.Relative.x * mouseSensitivity * (float)gotDelta; ;
-            generalRot.x -= motionEvent.Relative.y * mouseSensitivity * (float)gotDelta; ;
-            generalRot.x = Mathf.Clamp(generalRot.x, minCamPitch, maxCamPitch * (float)gotDelta);
+			Vector3 generalRot = cameraCenter.Rotation;
+            generalRot.y -= motionEvent.Relative.x * mouseSensitivity * (float)gotDelta;
+            generalRot.x -= motionEvent.Relative.y * mouseSensitivity * (float)gotDelta;
+            //generalRot.x = Mathf.Clamp(generalRot.x, minCamPitch, maxCamPitch); // doesn't do anything?
 			cameraCenter.Rotation = generalRot;
             generalRot = cameraCenter.Rotation;
         }
