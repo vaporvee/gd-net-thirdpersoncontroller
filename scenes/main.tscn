@@ -71,5 +71,3 @@ transform = Transform3D(0.994703, -0.00611287, -0.102607, 0.101106, 0.238088, 0.
 shadow_enabled = true
 
 [node name="player" parent="." instance=ExtResource("1_1hi18")]
-JumpVelocity = 5.5
-gravity = 14.0

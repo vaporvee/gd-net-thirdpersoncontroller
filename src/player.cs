@@ -42,7 +42,7 @@ public partial class player : CharacterBody3D
 
 		Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_forward", "move_backward");
 		direction = (Transform.basis * new Vector3(inputDir.x, 0, inputDir.y)).Normalized();
-		if (direction != Vector3.Zero)
+		if (direction != Vector3.Zero && Input.MouseMode == Input.MouseModeEnum.Captured)
 		{
 			velocity.x = direction.x * Speed;
 			velocity.z = direction.z * Speed;
@@ -50,7 +50,7 @@ public partial class player : CharacterBody3D
             //checks for movement and adjusts the character direction with camera roatation
             playerResetPosition = Rotation;
             camPosition = cameraCenter.Rotation;
-            playerResetPosition.y = camPosition.y * -1f;
+			playerResetPosition.y = camPosition.y * -1f;
             Rotation -= playerResetPosition;
             cameraCenter.Rotation = new Vector3(camPosition.x, 0, 0);
         }
@@ -59,11 +59,9 @@ public partial class player : CharacterBody3D
 			velocity.x = Mathf.MoveToward(Velocity.x, 0, Speed);
 			velocity.z = Mathf.MoveToward(Velocity.z, 0, Speed);
         }
-		if(Input.MouseMode == Input.MouseModeEnum.Captured)
-		{
+
 			Velocity = velocity;
-		}
-		MoveAndSlide();
+			MoveAndSlide();
 	}
 	public override void _Input(InputEvent @event)
 	{
