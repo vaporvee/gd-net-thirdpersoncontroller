@@ -26,9 +26,14 @@ public partial class player : CharacterBody3D
 	{
         if (Input.IsActionJustPressed("uncapture_mouse")) Input.MouseMode = Input.MouseModeEnum.Visible;
         if (Input.IsMouseButtonPressed(MouseButton.Left)) Input.MouseMode = Input.MouseModeEnum.Captured;//just uncapture to also disable player and camera movement
-        if (Input.IsActionJustPressed("move_forward") && Input.MouseMode == Input.MouseModeEnum.Captured)
+        if (Input.IsActionJustPressed("move_forward") || Input.IsActionJustPressed("move_forward") && Input.MouseMode == Input.MouseModeEnum.Captured)
 		{
-			playerResetPosition = Rotation;
+			/*TODO: make this for all movement input not just forward
+			and model should still walk sideways and to the camera then. 
+
+			Would work with just using all inputs
+			but model doesnt rotate how it should*/
+			playerResetPosition = Rotation; 
             camPosition = cameraCenter.Rotation;
 			playerResetPosition.y = camPosition.y * -1f;
 			Rotation -= playerResetPosition;
