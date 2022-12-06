@@ -16,6 +16,7 @@ public partial class player : CharacterBody3D
 	public Vector3 playerResetPosition;
 	//TODO: Add camera max rotation on ground (Preventing turning camera to upside down)
 	//TODO: just rotate model not just everything
+	//NOTICE: Since Beta 7 of Godot 4 the turning isn't smooth anymore
     public override void _Ready()
 	{
         cameraCenter = GetNode<Marker3D>("camera_center");
@@ -51,7 +52,7 @@ public partial class player : CharacterBody3D
             //checks for movement and adjusts the character direction with camera roatation
             playerResetPosition = Rotation;
             camPosition = cameraCenter.Rotation;
-			playerResetPosition.y = camPosition.y * -1f;
+			playerResetPosition.y = camPosition.y * -1;
             Rotation -= playerResetPosition;
             cameraCenter.Rotation = new Vector3(camPosition.x, 0, 0);
         }
