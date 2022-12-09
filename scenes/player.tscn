@@ -53,10 +53,10 @@ shape = SubResource("CapsuleShape3D_bfc1o")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 1.2, 0)
 
 [node name="spring_arm" type="SpringArm3D" parent="camera_center"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, -5.96046e-08, 1, 0, 0, -0.5)
+transform = Transform3D(1, 0, 0, 0, 0.992593, 0.121488, 0, -0.121488, 0.992593, 0, 0.167049, -0.637988)
 shape = SubResource("SeparationRayShape3D_31c1r")
 spring_length = 6.0
 
 [node name="camera" type="Camera3D" parent="camera_center/spring_arm"]
-transform = Transform3D(1, 1.54914e-09, -6.87955e-10, -1.62981e-09, 0.990268, -0.139173, 4.65661e-10, 0.139173, 0.990269, 0, 0.0182246, 6.09616)
+transform = Transform3D(1, 1.54914e-09, -6.87954e-10, -1.62981e-09, 0.990268, -0.139173, 4.65661e-10, 0.139173, 0.990269, 0, 0.0182246, 6.09616)
 current = true
