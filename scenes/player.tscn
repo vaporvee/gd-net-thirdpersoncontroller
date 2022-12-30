@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" path="res://src/player.cs" id="1_sqkid"]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bfc1o"]
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4c62m"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_72sci"]
@@ -14,49 +16,47 @@ material = SubResource("StandardMaterial3D_2m1ud")
 text = ":)"
 font_size = 70
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bfc1o"]
-
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_31c1r"]
 
 [node name="player" type="CharacterBody3D"]
 script = ExtResource("1_sqkid")
 
-[node name="mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.999994, 0, 0.00349065, 0, 1.2, 0, -0.00349065, 0, 0.999994, 0, 1.2, 0)
-mesh = SubResource("CapsuleMesh_4c62m")
-skeleton = NodePath("")
-
-[node name="handright" type="MeshInstance3D" parent="mesh"]
-transform = Transform3D(0.399998, -1.77635e-15, -0.00139626, 4.57356e-16, 0.333333, 0, 0.00139626, -6.20064e-18, 0.399998, 0.699996, 0.25, 0.00244345)
-mesh = SubResource("SphereMesh_72sci")
-skeleton = NodePath("")
-
-[node name="handleft" type="MeshInstance3D" parent="mesh"]
-transform = Transform3D(0.399998, -1.77635e-15, -0.00139626, 4.57356e-16, 0.333333, 0, 0.00139626, -6.20064e-18, 0.399998, -0.699996, 0.25, -0.00244345)
-mesh = SubResource("SphereMesh_72sci")
-skeleton = NodePath("")
-
-[node name="debugfacemesh" type="MeshInstance3D" parent="mesh"]
-transform = Transform3D(0.0010964, 0.999994, -0.00331398, -0.791156, -3.45825e-08, -0.261757, -0.314106, 0.00349064, 0.949381, 0.0915702, 0.666667, -0.449683)
-mesh = SubResource("TextMesh_fc7r6")
-skeleton = NodePath("../..")
-
-[node name="raycast" type="RayCast3D" parent="mesh"]
-transform = Transform3D(-0.999994, 0.00349056, -4.37111e-08, 3.64262e-08, 1.59224e-15, -0.833333, -0.00349056, -0.999994, -1.52579e-10, 0.00174532, -0.333333, -0.499997)
-target_position = Vector3(0, 1, 0)
-
 [node name="collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 1, 0, 1.2, 0)
 shape = SubResource("CapsuleShape3D_bfc1o")
 
-[node name="camera_center" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 1.2, 0)
+[node name="mesh" type="MeshInstance3D" parent="collision"]
+transform = Transform3D(0.999994, 0, 0.00349065, 0, 1, 0, -0.00349065, 0, 0.999994, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_4c62m")
+skeleton = NodePath("")
 
-[node name="spring_arm" type="SpringArm3D" parent="camera_center"]
-transform = Transform3D(1, 0, 0, 0, 0.992593, 0.121488, 0, -0.121488, 0.992593, 0, 0.167049, -0.637988)
+[node name="handright" type="MeshInstance3D" parent="collision/mesh"]
+transform = Transform3D(0.399998, -1.77635e-15, -0.00139626, 4.57356e-16, 0.333333, 0, 0.00139626, -6.20064e-18, 0.399998, 0.699996, 0.25, 0.00244345)
+mesh = SubResource("SphereMesh_72sci")
+skeleton = NodePath("")
+
+[node name="handleft" type="MeshInstance3D" parent="collision/mesh"]
+transform = Transform3D(0.399998, -1.77635e-15, -0.00139626, 4.57356e-16, 0.333333, 0, 0.00139626, -6.20064e-18, 0.399998, -0.699996, 0.25, -0.00244345)
+mesh = SubResource("SphereMesh_72sci")
+skeleton = NodePath("")
+
+[node name="debugfacemesh" type="MeshInstance3D" parent="collision/mesh"]
+transform = Transform3D(0.0010964, 0.999994, -0.00331398, -0.791156, -3.45825e-08, -0.261757, -0.314106, 0.00349064, 0.949381, 0.0915702, 0.666667, -0.449683)
+mesh = SubResource("TextMesh_fc7r6")
+skeleton = NodePath("../../..")
+
+[node name="raycast" type="RayCast3D" parent="collision/mesh"]
+transform = Transform3D(-0.999994, 0.00349056, -4.37111e-08, 3.64262e-08, 1.59224e-15, -0.833333, -0.00349056, -0.999994, -1.52579e-10, 0.00174532, -0.333333, -0.499997)
+target_position = Vector3(0, 1, 0)
+
+[node name="camera_center" type="Marker3D" parent="collision"]
+transform = Transform3D(1, 0, 0, 0, 0.833333, 0, 0, 0, 0.999999, 0, 0, 0)
+
+[node name="spring_arm" type="SpringArm3D" parent="collision/camera_center"]
+transform = Transform3D(1, 0, 0, 0, 0.992593, 0.121488, 0, -0.121488, 0.992593, 0, 0, -0.7)
 shape = SubResource("SeparationRayShape3D_31c1r")
 spring_length = 6.0
 
-[node name="camera" type="Camera3D" parent="camera_center/spring_arm"]
+[node name="camera" type="Camera3D" parent="collision/camera_center/spring_arm"]
 transform = Transform3D(1, 1.54914e-09, -6.87954e-10, -1.62981e-09, 0.990268, -0.139173, 4.65661e-10, 0.139173, 0.990269, 0, 0.0182246, 6.09616)
 current = true
