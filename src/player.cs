@@ -12,6 +12,8 @@ public partial class player : CharacterBody3D
 	public float allDelta;
 	public Marker3D camCenter;
 
+	//eveyrthing will be replaced with roatation and direction based movement
+	//camera global position will be included when calculating the player movement
 	public override void _Ready()
 	{
 		camCenter = GetNode<Marker3D>("camera_center");
@@ -26,9 +28,9 @@ public partial class player : CharacterBody3D
 	
 		if (Input.IsActionJustPressed("move_jump") && IsOnFloor())
 			velocity.y = JumpVelocity;
-		Vector2 camRotVector = new Vector2 ((float)Math.Cos(camCenter.Rotation.y), (float)Math.Sin(camCenter.Rotation.y));
-        Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_forward", "move_backward") * camRotVector;
-		Vector3 direction = new Vector3(inputDir.x * camRotVector.x, 0, inputDir.y * camRotVector.y);
+
+		Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_forward", "move_backward");
+		Vector3 direction = (camCenter.Transform.basis * new Vector3(inputDir.x, 0, inputDir.y)).Normalized();
 		if (direction != Vector3.Zero)
 		{
 			velocity.x = direction.x * Speed;
