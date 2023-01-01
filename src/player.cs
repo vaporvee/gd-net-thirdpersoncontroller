@@ -4,8 +4,8 @@ using System;
 public partial class player : CharacterBody3D
 {
 	[Export] public const float Speed = 5.0f;
-	[Export] public const float JumpVelocity = 4.5f;
-	[Export] public const float gravity = 9f;
+	[Export] public const float JumpVelocity = 5f;
+	[Export] public const float gravity = 14f;
 	[Export(PropertyHint.Range, "0.1,1.0")] float mouseSensitivity = 0.3f;
 	[Export(PropertyHint.Range, "-90,0,1")] float minMousePitch = -90f;
     [Export(PropertyHint.Range, "0,90,1")] float maxMousePitch = 50f;
@@ -33,7 +33,7 @@ public partial class player : CharacterBody3D
 			velocity.y = JumpVelocity;
 
 		Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_forward", "move_backward");
-		Vector3 direction = (camCenter.Transform.basis * new Vector3(inputDir.x, 0, inputDir.y)).Normalized();
+		Vector3 direction = new Vector3(inputDir.x, 0, inputDir.y).Rotated(Vector3.Up, camCenter.Rotation.y).Normalized();
 		if (direction != Vector3.Zero)
 		{
 			velocity.x = direction.x * Speed;
