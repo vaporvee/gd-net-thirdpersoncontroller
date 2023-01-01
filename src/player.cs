@@ -12,21 +12,24 @@ public partial class player : CharacterBody3D
 	public float allDelta;
 	public Marker3D camCenter;
 
-	//eveyrthing will be replaced with roatation and direction based movement
-	//camera global position will be included when calculating the player movement
 	public override void _Ready()
 	{
 		camCenter = GetNode<Marker3D>("camera_center");
 	}
-	public override void _PhysicsProcess(double delta)
+	public override void _Process(double delta)
 	{
 		allDelta = (float)delta;
+        if (Input.IsActionJustPressed("uncapture_mouse")) Input.MouseMode = Input.MouseModeEnum.Visible;
+        if (Input.IsMouseButtonPressed(MouseButton.Left)) Input.MouseMode = Input.MouseModeEnum.Captured;
+	}
+	public override void _PhysicsProcess(double delta)
+	{
 		Vector3 velocity = Velocity;
 
 		if (!IsOnFloor())
 			velocity.y -= gravity * allDelta;
 	
-		if (Input.IsActionJustPressed("move_jump") && IsOnFloor())
+		if (Input.IsActionJustPressed("move_jump") && IsOnFloor() && Input.MouseMode == Input.MouseModeEnum.Captured)
 			velocity.y = JumpVelocity;
 
 		Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_forward", "move_backward");
@@ -41,20 +44,18 @@ public partial class player : CharacterBody3D
 			velocity.x = Mathf.MoveToward(Velocity.x, 0, Speed);
 			velocity.z = Mathf.MoveToward(Velocity.z, 0, Speed);
 		}
-
 		Velocity = velocity;
 		MoveAndSlide();
 	}
 	public override void _Input(InputEvent @event)
 	{
-		if (@event is InputEventMouseMotion mouseMotion)
+		if (@event is InputEventMouseMotion mouseMotion && Input.MouseMode == Input.MouseModeEnum.Captured)
 		{
 			Vector3 camRot = camCenter.RotationDegrees;
 			camRot.y -= mouseMotion.Relative.x * mouseSensitivity;
 			camRot.x -= mouseMotion.Relative.y * mouseSensitivity;
             camRot.x = Mathf.Clamp(camRot.x, minMousePitch, maxMousePitch);
 			camCenter.RotationDegrees = camRot;
-			
 		}
 	}
 }
