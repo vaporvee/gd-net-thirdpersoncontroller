@@ -49,14 +49,14 @@ skeleton = NodePath("../../..")
 transform = Transform3D(-0.999994, 0.00349056, -4.37111e-08, 3.64262e-08, 1.59224e-15, -0.833333, -0.00349056, -0.999994, -1.52579e-10, 0.00174532, -0.333333, -0.499997)
 target_position = Vector3(0, 1, 0)
 
-[node name="camera_center" type="Marker3D" parent="collision"]
-transform = Transform3D(1, 0, 0, 0, 0.833333, 0, 0, 0, 0.999999, 0, 0, 0)
+[node name="camera_center" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 1.2, 0)
 
-[node name="spring_arm" type="SpringArm3D" parent="collision/camera_center"]
+[node name="spring_arm" type="SpringArm3D" parent="camera_center"]
 transform = Transform3D(1, 0, 0, 0, 0.992593, 0.121488, 0, -0.121488, 0.992593, 0, 0, -0.7)
 shape = SubResource("SeparationRayShape3D_31c1r")
 spring_length = 6.0
 
-[node name="camera" type="Camera3D" parent="collision/camera_center/spring_arm"]
+[node name="camera" type="Camera3D" parent="camera_center/spring_arm"]
 transform = Transform3D(1, 1.54914e-09, -6.87954e-10, -1.62981e-09, 0.990268, -0.139173, 4.65661e-10, 0.139173, 0.990269, 0, 0.0182246, 6.09616)
 current = true
