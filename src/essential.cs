@@ -5,6 +5,7 @@ public partial class essential : Node
 {
 	public override void _Ready()
 	{
+        ProjectSettings.SetSetting("physics/common/physics_ticks_per_second", Performance.GetMonitor(Performance.Monitor.TimeFps));
 	}
 
 	public override void _Process(double delta)

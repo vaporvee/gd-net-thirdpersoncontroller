@@ -32,7 +32,7 @@ public partial class player : CharacterBody3D
 			velocity.x = direction.x * Speed;
 			velocity.z = direction.z * Speed;
 			Vector3 bodyRotation = GetNode<MeshInstance3D>("collision/body").Rotation;
-			bodyRotation.y = Mathf.LerpAngle(bodyRotation.y,Mathf.Atan2(-direction.x, -direction.z), (float)delta * Speed);
+			bodyRotation.y = Mathf.LerpAngle(bodyRotation.y,Mathf.Atan2(-direction.x, -direction.z), (float)delta * Speed * 1.5f);
 			GetNode<MeshInstance3D>("collision/body").Rotation = bodyRotation;
 		}
 		else
