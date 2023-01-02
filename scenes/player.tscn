@@ -46,10 +46,10 @@ mesh = SubResource("TextMesh_fc7r6")
 skeleton = NodePath("../../..")
 
 [node name="camera_center" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 1.2, 0)
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965925, 0, 1.93536, 0)
 
 [node name="spring_arm" type="SpringArm3D" parent="camera_center"]
-transform = Transform3D(1, 0, 0, 0, 0.992593, 0.121488, 0, -0.121488, 0.992593, 0, 0, -0.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7)
 shape = SubResource("SeparationRayShape3D_31c1r")
 spring_length = 6.0
 
