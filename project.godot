@@ -71,6 +71,7 @@ uncapture_mouse={
 
 [physics]
 
+common/physics_ticks_per_second=144
 3d/default_gravity=12.0
 
 [rendering]
