@@ -25,29 +25,25 @@ script = ExtResource("1_sqkid")
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 1, 0, 1.2, 0)
 shape = SubResource("CapsuleShape3D_bfc1o")
 
-[node name="mesh" type="MeshInstance3D" parent="collision"]
+[node name="body" type="MeshInstance3D" parent="collision"]
 transform = Transform3D(0.999994, 0, 0.00349065, 0, 1, 0, -0.00349065, 0, 0.999994, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_4c62m")
 skeleton = NodePath("")
 
-[node name="handright" type="MeshInstance3D" parent="collision/mesh"]
+[node name="handright" type="MeshInstance3D" parent="collision/body"]
 transform = Transform3D(0.399998, -1.77635e-15, -0.00139626, 4.57356e-16, 0.333333, 0, 0.00139626, -6.20064e-18, 0.399998, 0.699996, 0.25, 0.00244345)
 mesh = SubResource("SphereMesh_72sci")
 skeleton = NodePath("")
 
-[node name="handleft" type="MeshInstance3D" parent="collision/mesh"]
+[node name="handleft" type="MeshInstance3D" parent="collision/body"]
 transform = Transform3D(0.399998, -1.77635e-15, -0.00139626, 4.57356e-16, 0.333333, 0, 0.00139626, -6.20064e-18, 0.399998, -0.699996, 0.25, -0.00244345)
 mesh = SubResource("SphereMesh_72sci")
 skeleton = NodePath("")
 
-[node name="debugfacemesh" type="MeshInstance3D" parent="collision/mesh"]
+[node name="debugfacemesh" type="MeshInstance3D" parent="collision/body"]
 transform = Transform3D(0.0010964, 0.999994, -0.00331398, -0.791156, -3.45825e-08, -0.261757, -0.314106, 0.00349064, 0.949381, 0.0915702, 0.666667, -0.449683)
 mesh = SubResource("TextMesh_fc7r6")
 skeleton = NodePath("../../..")
-
-[node name="raycast" type="RayCast3D" parent="collision/mesh"]
-transform = Transform3D(-0.999994, 0.00349056, -4.37111e-08, 3.64262e-08, 1.59224e-15, -0.833333, -0.00349056, -0.999994, -1.52579e-10, 0.00174532, -0.333333, -0.499997)
-target_position = Vector3(0, 1, 0)
 
 [node name="camera_center" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 1.2, 0)
