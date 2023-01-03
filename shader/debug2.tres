@@ -1,0 +1,28 @@
+[gd_resource type="VisualShader" load_steps=2 format=3 uid="uid://v3mxp45i58ws"]
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_k6e5s"]
+parameter_name = "ColorParameter"
+default_value_enabled = true
+default_value = Color(0.947399, 6.95249e-05, 3.58093e-05, 1)
+
+[resource]
+code = "shader_type spatial;
+uniform vec4 ColorParameter : source_color = vec4(0.947399, 0.000070, 0.000036, 1.000000);
+
+
+
+void fragment() {
+// ColorParameter:2
+	vec4 n_out2p0 = ColorParameter;
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+
+
+}
+"
+graph_offset = Vector2(-324.172, 7.38333)
+nodes/fragment/2/node = SubResource("VisualShaderNodeColorParameter_k6e5s")
+nodes/fragment/2/position = Vector2(-2, 329)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0)
