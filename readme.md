@@ -1,2 +1,2 @@
-# 3d-game-test
-trying out the 3D features from godot for fututre games
+# Godot Mono thirdperson controller
+This is a working thirdperson controller made in the mono version of godot with C#

@@ -2,6 +2,6 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
-    <RootNamespace>test3dproject</RootNamespace>
+    <RootNamespace>gd-mono-thirdpersoncontroller</RootNamespace>
   </PropertyGroup>
 </Project>
