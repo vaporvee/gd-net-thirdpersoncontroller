@@ -77,5 +77,8 @@ common/physics_ticks_per_second=144
 
 [rendering]
 
+lights_and_shadows/directional_shadow/size=6144
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=5
 anti_aliasing/quality/msaa_3d=2
 anti_aliasing/quality/screen_space_aa=1
+occlusion_culling/use_occlusion_culling=true
