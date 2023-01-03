@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class essential : Node
+public partial class window : Node
 {
 	public override void _Ready()
 	{

@@ -1,8 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://dqyb5g1lyurfj"]
+[gd_scene load_steps=12 format=3 uid="uid://dqyb5g1lyurfj"]
 
 [ext_resource type="PackedScene" uid="uid://b2ncexsbkd2ca" path="res://scenes/player.tscn" id="1_1hi18"]
-[ext_resource type="Shader" uid="uid://v3mxp45i58ws" path="res://shader/debug2.tres" id="1_b4a1p"]
-[ext_resource type="Shader" uid="uid://ce67ji5dkjiiv" path="res://shader/debug1.tres" id="2_3p2fh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rubfc"]
 ground_bottom_color = Color(0.87451, 0.952941, 1, 1)
@@ -20,24 +18,12 @@ ssr_fade_out = 2.21914
 
 [sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_0vf24"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0qhj1"]
-render_priority = 0
-shader = ExtResource("1_b4a1p")
-shader_parameter/ColorParameter = null
-
 [sub_resource type="BoxMesh" id="BoxMesh_hmqcx"]
-material = SubResource("ShaderMaterial_0qhj1")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bxkt8"]
 size = Vector3(1, 1, 1.24943)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2hee6"]
-render_priority = 0
-shader = ExtResource("2_3p2fh")
-shader_parameter/ColorParameter = null
-
 [sub_resource type="PlaneMesh" id="PlaneMesh_p3q8d"]
-material = SubResource("ShaderMaterial_2hee6")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pxtb0"]
 size = Vector3(1.994, 0.048, 2)
