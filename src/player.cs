@@ -6,8 +6,8 @@ public partial class player : CharacterBody3D
 	[Export] float jumpVelocity = 5f;
 	[Export] float gravity = 14f;
 	[Export(PropertyHint.Range, "0.1,1.0")] float mouseSensitivity = 0.3f;
-	[Export(PropertyHint.Range, "-90,0,1")] float minMousePitch = -90f;
-    [Export(PropertyHint.Range, "0,90,1")] float maxMousePitch = 90f;
+	[Export(PropertyHint.Range, "-90,0,1")] float minMousePitch = -50f;
+    [Export(PropertyHint.Range, "0,90,1")] float maxMousePitch = 50f;
 
 	public override void _Process(double delta)
 	{
