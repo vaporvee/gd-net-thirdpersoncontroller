@@ -5,6 +5,7 @@ public partial class window : Node
 {
 	public override void _Ready()
     {
+		DisplayServer.WindowRequestAttention();
         OS.Alert("Make sure that you either capture your mouse or play with a gamepad. Jump with space or bottom gamepad face button. Remove this message in window.cs - vaporvee.com","Information");
     }
 	public override void _Process(double delta)
