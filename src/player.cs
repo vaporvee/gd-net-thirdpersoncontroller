@@ -31,8 +31,8 @@ public partial class player : CharacterBody3D
 		if(gpCamVector != Vector2.Zero)
 		{
 			Vector3 camRot = GetNode<Marker3D>("camera_center").RotationDegrees;
-			camRot.y -= gpCamVector.x * camSensitivity * 500 * (float)delta;
-			camRot.x -= gpCamVector.y * camSensitivity * 500 * (float)delta;
+			camRot.y -= gpCamVector.x * camSensitivity * (float)delta * 500;
+			camRot.x -= gpCamVector.y * camSensitivity * (float)delta * 500;
 			camRot.x = Mathf.Clamp(camRot.x, minCamPitch, maxCamPitch); //prevents camera from going endlessly around the player
 			GetNode<Marker3D>("camera_center").RotationDegrees = camRot;
 		}
@@ -51,8 +51,8 @@ public partial class player : CharacterBody3D
 		direction = new Vector3(inputDir.x, 0, inputDir.y).Rotated(Vector3.Up, GetNode<Marker3D>("camera_center").Rotation.y).Normalized(); //rotates the input direction with camera rotation
 		if (direction != Vector3.Zero && Input.MouseMode == Input.MouseModeEnum.Captured | gamepadMode)
 		{
-			velocity.x = direction.x * speed;
-			velocity.z = direction.z * speed;
+			velocity.x = direction.x * speed * (float)delta * 60;
+			velocity.z = direction.z * speed * (float)delta * 60;
 		}
 		else
 		{
