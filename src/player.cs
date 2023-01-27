@@ -14,13 +14,13 @@ public partial class player : CharacterBody3D
 
 	public override void _Process(double delta)
 	{
-		//uncapturing the mouse disables player movement but still simulates gravity
+		//uncapturing the mouse disables PC movement but still simulates gravity
 		if (Input.IsActionJustPressed("uncapture_mouse")) Input.MouseMode = Input.MouseModeEnum.Visible;
 		if (Input.IsMouseButtonPressed(MouseButton.Left)) Input.MouseMode = Input.MouseModeEnum.Captured;
 		
 		/**body rotation is in regular process because it lags in physicsprocess and is more a animation anyway
 			maybe rotate extra collisions separately for invisible lag that may occur**/
-		if (direction != Vector3.Zero)
+		if (direction != Vector3.Zero && Input.MouseMode == Input.MouseModeEnum.Captured | gamepadMode)
 		{
 			Vector3 bodyRotation = GetNode<MeshInstance3D>("collision/body").Rotation;
 			bodyRotation.y = Mathf.LerpAngle(bodyRotation.y,Mathf.Atan2(-direction.x, -direction.z), (float)delta * speed);
@@ -33,7 +33,6 @@ public partial class player : CharacterBody3D
 			Vector3 camRot = GetNode<Marker3D>("camera_center").RotationDegrees;
 			camRot.y -= gpCamVector.x * camSensitivity * 500 * (float)delta;
 			camRot.x -= gpCamVector.y * camSensitivity * 500 * (float)delta;
-			GD.Print(gpCamVector);
 			camRot.x = Mathf.Clamp(camRot.x, minCamPitch, maxCamPitch); //prevents camera from going endlessly around the player
 			GetNode<Marker3D>("camera_center").RotationDegrees = camRot;
 		}
@@ -50,7 +49,7 @@ public partial class player : CharacterBody3D
 
 		Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_forward", "move_backward");
 		direction = new Vector3(inputDir.x, 0, inputDir.y).Rotated(Vector3.Up, GetNode<Marker3D>("camera_center").Rotation.y).Normalized(); //rotates the input direction with camera rotation
-		if (direction != Vector3.Zero)
+		if (direction != Vector3.Zero && Input.MouseMode == Input.MouseModeEnum.Captured | gamepadMode)
 		{
 			velocity.x = direction.x * speed;
 			velocity.z = direction.z * speed;
