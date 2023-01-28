@@ -23,7 +23,7 @@ public partial class player : CharacterBody3D
 		if (direction != Vector3.Zero && Input.MouseMode == Input.MouseModeEnum.Captured | gamepadMode)
 		{
 			Vector3 bodyRotation = GetNode<MeshInstance3D>("collision/body").Rotation;
-			bodyRotation.y = Mathf.LerpAngle(bodyRotation.y,Mathf.Atan2(-direction.x, -direction.z), (float)delta * speed);
+			bodyRotation.Y = Mathf.LerpAngle(bodyRotation.Y,Mathf.Atan2(-direction.X, -direction.Z), (float)delta * speed);
 			GetNode<MeshInstance3D>("collision/body").Rotation = bodyRotation;
 		}
 		//camera gamepad part (needs constant movement so _Input event wouldn't work with this like mouseinput)
@@ -31,9 +31,9 @@ public partial class player : CharacterBody3D
 		if(gpCamVector != Vector2.Zero)
 		{
 			Vector3 camRot = GetNode<Marker3D>("camera_center").RotationDegrees;
-			camRot.y -= gpCamVector.x * camSensitivity * (float)delta * 500;
-			camRot.x -= gpCamVector.y * camSensitivity * (float)delta * 500;
-			camRot.x = Mathf.Clamp(camRot.x, minCamPitch, maxCamPitch); //prevents camera from going endlessly around the player
+			camRot.Y -= gpCamVector.X * camSensitivity * (float)delta * 500;
+			camRot.X -= gpCamVector.Y * camSensitivity * (float)delta * 500;
+			camRot.X = Mathf.Clamp(camRot.X, minCamPitch, maxCamPitch); //prevents camera from going endlessly around the player
 			GetNode<Marker3D>("camera_center").RotationDegrees = camRot;
 		}
 	}
@@ -42,22 +42,22 @@ public partial class player : CharacterBody3D
 		Vector3 velocity = Velocity;
 
 		if (!IsOnFloor())
-			velocity.y -= gravity * (float)delta; //characterbodys don't have physic simulations by default like rigidbody
+			velocity.Y -= gravity * (float)delta; //characterbodys don't have physic simulations by default like rigidbody
 	
 		if (Input.IsActionJustPressed("move_jump") && IsOnFloor() && Input.MouseMode == Input.MouseModeEnum.Captured | gamepadMode)
-			velocity.y = jumpVelocity;
+			velocity.Y = jumpVelocity;
 
 		Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_forward", "move_backward");
-		direction = new Vector3(inputDir.x, 0, inputDir.y).Rotated(Vector3.Up, GetNode<Marker3D>("camera_center").Rotation.y).Normalized(); //rotates the input direction with camera rotation
+		direction = new Vector3(inputDir.X, 0, inputDir.Y).Rotated(Vector3.Up, GetNode<Marker3D>("camera_center").Rotation.Y).Normalized(); //rotates the input direction with camera rotation
 		if (direction != Vector3.Zero && Input.MouseMode == Input.MouseModeEnum.Captured | gamepadMode)
 		{
-			velocity.x = direction.x * speed * (float)delta * 60;
-			velocity.z = direction.z * speed * (float)delta * 60;
+			velocity.X = direction.X * speed * (float)delta * 60;
+			velocity.Z = direction.Z * speed * (float)delta * 60;
 		}
 		else
 		{
-			velocity.x = Mathf.MoveToward(Velocity.x, 0, speed);
-			velocity.z = Mathf.MoveToward(Velocity.z, 0, speed);
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, speed);
+			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, speed);
 		}
 		Velocity = velocity;
 		MoveAndSlide();
@@ -68,10 +68,10 @@ public partial class player : CharacterBody3D
 		Vector3 camRot = GetNode<Marker3D>("camera_center").RotationDegrees;
 		if (@event is InputEventMouseMotion mouseMotion && Input.MouseMode == Input.MouseModeEnum.Captured)
 		{
-			camRot.y -= mouseMotion.Relative.x * camSensitivity;
-			camRot.x -= mouseMotion.Relative.y * camSensitivity;
+			camRot.Y -= mouseMotion.Relative.X * camSensitivity;
+			camRot.X -= mouseMotion.Relative.Y * camSensitivity;
 		}
-		camRot.x = Mathf.Clamp(camRot.x, minCamPitch, maxCamPitch); //prevents camera from going endlessly around the player
+		camRot.X = Mathf.Clamp(camRot.X, minCamPitch, maxCamPitch); //prevents camera from going endlessly around the player
 		GetNode<Marker3D>("camera_center").RotationDegrees = camRot;
 	}
 }

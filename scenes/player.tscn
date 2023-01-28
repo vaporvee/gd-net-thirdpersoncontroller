@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://src/player.cs" id="1_sqkid"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bfc1o"]
+height = 2.4
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4c62m"]
 
@@ -22,11 +23,11 @@ font_size = 70
 script = ExtResource("1_sqkid")
 
 [node name="collision" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 1, 0, 1.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 shape = SubResource("CapsuleShape3D_bfc1o")
 
 [node name="body" type="MeshInstance3D" parent="collision"]
-transform = Transform3D(0.999994, 0, 0.00349065, 0, 1, 0, -0.00349065, 0, 0.999994, 0, 0, 0)
+transform = Transform3D(0.999994, 0, 0.00349065, 0, 1.2, 0, -0.00349065, 0, 0.999994, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_4c62m")
 skeleton = NodePath("")
 

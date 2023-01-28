@@ -18,15 +18,15 @@ ssr_fade_out = 2.21914
 
 [sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_0vf24"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_hmqcx"]
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_bxkt8"]
-size = Vector3(1, 1, 1.24943)
+size = Vector3(14, 7, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hmqcx"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_p3q8d"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pxtb0"]
-size = Vector3(1.994, 0.048, 2)
+size = Vector3(14, 0.1, 14)
 
 [sub_resource type="BoxMesh" id="BoxMesh_865hq"]
 
@@ -37,24 +37,24 @@ environment = SubResource("Environment_3olxv")
 camera_attributes = SubResource("CameraAttributesPhysical_0vf24")
 
 [node name="wall" type="StaticBody3D" parent="."]
-transform = Transform3D(3.18901, 0, 0, 0, 1.018, 0, 0, 0, 7, 0, 0, -0.704191)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="wall"]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 0.02, 0.0452084, 2.24667, 1.0926)
-mesh = SubResource("BoxMesh_hmqcx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="wall"]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 0.02, 0.04108, 2.19764, 1.09242)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 7)
 shape = SubResource("BoxShape3D_bxkt8")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="wall"]
+transform = Transform3D(14, 0, 0, 0, 7, 0, 0, 0, 0.018, 0, 3.5, 7)
+mesh = SubResource("BoxMesh_hmqcx")
+
 [node name="ground" type="StaticBody3D" parent="."]
-transform = Transform3D(7.781, 0, 0, 0, 1.018, 0, 0, 0, 7, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ground"]
+transform = Transform3D(7, 0, 0, 0, 1, 0, 0, 0, 7, 0, 0, 0)
 mesh = SubResource("PlaneMesh_p3q8d")
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 shape = SubResource("BoxShape3D_pxtb0")
 
 [node name="cube" type="StaticBody3D" parent="."]
