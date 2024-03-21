@@ -5,12 +5,19 @@ public partial class player : CharacterBody3D
 	public Vector3 direction;
 	public Vector2 gpCamVector;
 	public bool gamepadMode;
+	private Marker3D cameraCenter {get; set;}
+	private MeshInstance3D collisionBody {get; set;}
 	[Export] float speed = 5.0f;
 	[Export] float jumpVelocity = 5f;
 	[Export] float gravity = 14f;
 	[Export(PropertyHint.Range, "0.1,1.0")] float camSensitivity = 0.3f;
 	[Export(PropertyHint.Range, "-90,0,1")] float minCamPitch = -50f;
 	[Export(PropertyHint.Range, "0,90,1")] float maxCamPitch = 30f;
+
+	public override void _Ready() {
+		cameraCenter = GetNode<Marker3D>("camera_center");
+		collisionBody = GetNode<MeshInstance3D>("collision/body");
+	}
 
 	public override void _Process(double delta)
 	{
@@ -22,19 +29,19 @@ public partial class player : CharacterBody3D
 			maybe rotate extra collisions separately for invisible lag that may occur**/
 		if (direction != Vector3.Zero && Input.MouseMode == Input.MouseModeEnum.Captured | gamepadMode)
 		{
-			Vector3 bodyRotation = GetNode<MeshInstance3D>("collision/body").Rotation;
+			Vector3 bodyRotation = collisionBody.Rotation;
 			bodyRotation.Y = Mathf.LerpAngle(bodyRotation.Y,Mathf.Atan2(-direction.X, -direction.Z), (float)delta * speed);
-			GetNode<MeshInstance3D>("collision/body").Rotation = bodyRotation;
+			collisionBody.Rotation = bodyRotation;
 		}
 		//camera gamepad part (needs constant movement so _Input event wouldn't work with this like mouseinput)
 		gpCamVector = Input.GetVector("gp_cam_left", "gp_cam_right", "gp_cam_up", "gp_cam_down");
 		if(gpCamVector != Vector2.Zero)
 		{
-			Vector3 camRot = GetNode<Marker3D>("camera_center").RotationDegrees;
+			Vector3 camRot = cameraCenter.RotationDegrees;
 			camRot.Y -= gpCamVector.X * camSensitivity * (float)delta * 500;
 			camRot.X -= gpCamVector.Y * camSensitivity * (float)delta * 500;
 			camRot.X = Mathf.Clamp(camRot.X, minCamPitch, maxCamPitch); //prevents camera from going endlessly around the player
-			GetNode<Marker3D>("camera_center").RotationDegrees = camRot;
+			cameraCenter.RotationDegrees = camRot;
 		}
 	}
 	public override void _PhysicsProcess(double delta)
@@ -65,13 +72,13 @@ public partial class player : CharacterBody3D
 	public override void _Input(InputEvent @event)
 	{
 		gamepadMode = @event is InputEventJoypadButton | @event is InputEventJoypadMotion;
-		Vector3 camRot = GetNode<Marker3D>("camera_center").RotationDegrees;
+		Vector3 camRot = cameraCenter.RotationDegrees;
 		if (@event is InputEventMouseMotion mouseMotion && Input.MouseMode == Input.MouseModeEnum.Captured)
 		{
 			camRot.Y -= mouseMotion.Relative.X * camSensitivity;
 			camRot.X -= mouseMotion.Relative.Y * camSensitivity;
 		}
 		camRot.X = Mathf.Clamp(camRot.X, minCamPitch, maxCamPitch); //prevents camera from going endlessly around the player
-		GetNode<Marker3D>("camera_center").RotationDegrees = camRot;
+		cameraCenter.RotationDegrees = camRot;
 	}
 }
